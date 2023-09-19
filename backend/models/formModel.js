@@ -43,6 +43,10 @@ const formModelSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    status: {
+      type: String,
+      default: "Neperžiūrėtas",
+    },
   },
   {
     timestamps: true,

@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import Forma from "../models/formModel.js";
 
 // @desc   Register a new user
-// route   POST /api/users
+// route   POST /api/forms
 // @access Public
 const createForm = asyncHandler(async (req, res) => {
   const {
@@ -38,19 +38,32 @@ const createForm = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc   Get user profile
-// route   GET /api/form/getform
+// @desc   Get all forms
+// route   GET /api/forms/getforms
+// @access Private
+
+const getForms = asyncHandler(async (req, res) => {
+  const forms = await Forma.find({}).sort({ createdAt: -1 });
+  res.status(200).json(forms);
+});
+
+// @desc   Get one form
+// route   GET /api/forms/getform/:id
 // @access Private
 
 const getForm = asyncHandler(async (req, res) => {
-  const forms = await Forma.find({}).sort({ createdAt: -1 });
-  res.status(200).json(forms);
+  const { id } = req.params;
+  const form = await Forma.findById(id);
+  if (!form) {
+    return res.status(404).json({ error: "nera tokios formos" });
+  }
+  res.status(200).json(form);
 });
 
 // @desc   Update user profile
 // route   PUT /api/users/profile
 // @access Private
-// const updateUserProfile = asyncHandler(async (req, res) => {
+// const updateForm = asyncHandler(async (req, res) => {
 //   const user = await User.findById(req.user._id);
 
 //   if (user) {
@@ -73,4 +86,4 @@ const getForm = asyncHandler(async (req, res) => {
 //   }
 // });
 
-export { createForm, getForm };
+export { createForm, getForms, getForm };

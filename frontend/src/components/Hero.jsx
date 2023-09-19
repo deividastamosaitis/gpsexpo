@@ -3,18 +3,6 @@ import { LinkContainer } from "react-router-bootstrap";
 import ClientFormContainer from "../components/ClientFormContainer";
 
 const Hero = () => {
-  useEffect(() => {
-    const getForms = async () => {
-      const response = await fetch("/api/form/getform");
-      const json = await response.json();
-
-      if (response.ok) {
-        setForms(json);
-      }
-    };
-
-    getForms();
-  });
 
   return (
     <div className=" py-5">

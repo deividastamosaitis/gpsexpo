@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
-app.use("/api/form", formRoutes);
+app.use("/api/forms", formRoutes);
 
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();

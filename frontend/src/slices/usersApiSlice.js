@@ -45,6 +45,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    updateForm: builder.mutation({
+      query: (data) => ({
+        url: `${FORM_URL}/getform`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -55,4 +62,5 @@ export const {
   useUpdateUserMutation,
   useCreateUserFormMutation,
   useUserFormMutation,
+  useUpdateFormMutation,
 } = usersApiSlice;
