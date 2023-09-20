@@ -17,17 +17,17 @@ const FormsScreen = () => {
   };
 
   useEffect( () => {
-    const getForms = async () => {
+    const getForms = async (id, name, status) => {
       const response = await fetch('/api/forms/getforms/', );
       const json = await response.json();
 
       if (response.ok) {
         setForms(json);
+        console.log(forms)
         
       }
     };
     getForms();
-    console.log(forms.name)
   }, []);
 
 

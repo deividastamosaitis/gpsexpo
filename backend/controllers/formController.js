@@ -63,27 +63,16 @@ const getForm = asyncHandler(async (req, res) => {
 // @desc   Update user profile
 // route   PUT /api/users/profile
 // @access Private
-// const updateForm = asyncHandler(async (req, res) => {
-//   const user = await User.findById(req.user._id);
+const updateForm = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.params;
+    const form = await Forma.findByIdAndUpdate({ _id: id }, req.body, {
+      new: true,
+    });
+    res.status(200).json(form);
+  } catch (error) {
+    res.status(404).json({ error: "nera tokios formos" });
+  }
+});
 
-//   if (user) {
-//     user.name = req.body.name || user.name;
-//     user.email = req.body.email || user.email;
-//     if (req.body.password) {
-//       user.password = req.body.password;
-//     }
-
-//     const updatedUser = await user.save();
-
-//     res.status(200).json({
-//       _id: updatedUser._id,
-//       name: updatedUser.name,
-//       email: updatedUser.email,
-//     });
-//   } else {
-//     res.status(404);
-//     throw new Error("User not found");
-//   }
-// });
-
-export { createForm, getForms, getForm };
+export { createForm, getForms, getForm, updateForm };
