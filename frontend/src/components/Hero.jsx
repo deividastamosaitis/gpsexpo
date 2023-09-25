@@ -20,11 +20,11 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className=" py-5">
-      <Container className="d-flex justify-content-center">
+    <div className="">
+      <Container fluid className="justify-content-center">
         <Row>
           <Col xs={12} md={6} className="">
-            <Card className="p-5 d-flex flex-column align-items-center hero-card">
+            <Card className=" d-flex flex-column align-items-center hero-card">
               <h1 className="text-center mb-4">Padėkite mums padėti Jums!</h1>
               <p className="text-center ">
                 Užpildykite žemiau pateiktą kamerų sistemos bendrinę apklausą ir
@@ -36,7 +36,7 @@ const Hero = () => {
             </Card>
           </Col>
           <Col xs={12} md={6} className="">
-            <Card className="p-5 d-flex flex-column align-items-center hero-card">
+            <Card className="d-flex flex-column align-items-center hero-card">
               <h3>Aplankyti objektai:</h3>
               <p className="objektu-skaicius mt-2">{objektai?.length + 100}</p>
               <hr
@@ -49,7 +49,7 @@ const Hero = () => {
               />
               <div className="youtube-video">
                 <iframe
-                  width="450px"
+                  width="350px"
                   height="300px"
                   src="https://www.youtube.com/embed/8tuPSthWrrM"
                   allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture"
@@ -58,7 +58,7 @@ const Hero = () => {
               </div>
               <div className="youtube-video">
                 <iframe
-                  width="450px"
+                  width="350px"
                   height="300px"
                   src="https://www.youtube.com/embed/luQ7qeRDavA"
                   allow="accelerometer; autoplay; clipboard-write; gyroscope; picture-in-picture"
