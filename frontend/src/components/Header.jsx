@@ -30,7 +30,7 @@ const Header = () => {
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
-              <img src="../public/img/gpslogo.png" width={"240px"}></img>
+              <img src="/img/gpslogo.webp" width={"240px"}></img>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
