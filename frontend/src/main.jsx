@@ -25,7 +25,8 @@ const router = createBrowserRouter(
       <Route path="/login" element={<LoginScreen />} />
       {/* PRIVATE */}
       <Route path="" element={<PrivateRoute />}>
-        <Route path="/register" element={<RegisterScreen />} />
+        
+      <Route path="/register" element={<RegisterScreen />} />
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/objektai" element={<ObjectScreen />} />
       </Route>

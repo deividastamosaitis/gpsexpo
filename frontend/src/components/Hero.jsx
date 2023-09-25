@@ -35,7 +35,7 @@ const Hero = () => {
               <ClientFormContainer />
             </Card>
           </Col>
-          <Col xs={12} md={6} className="">
+          <Col xs={12} md={6} className="mt-5">
             <Card className="d-flex flex-column align-items-center hero-card">
               <h3>Aplankyti objektai:</h3>
               <p className="objektu-skaicius mt-2">{objektai?.length + 100}</p>

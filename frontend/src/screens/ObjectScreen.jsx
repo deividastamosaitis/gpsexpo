@@ -26,7 +26,6 @@ const ObjectScreen = () => {
   return (
     <div>
       <h2>Objektu puslapis</h2>
-      <ObjektasForm />
       <div className="d-flex">
         <p>
           <b>Viso objektu:</b> {visiObjektai}
