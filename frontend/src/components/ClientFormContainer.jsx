@@ -219,9 +219,9 @@ const ClientFormContainer = () => {
 
       {isLoading && <Loader />}
 
-      <Col xs="auto">
+      <Col xs="auto" className="text-center">
         <Button type="submit" className="mb-2">
-          Submit
+          Pateikti užklausa
         </Button>
       </Col>
     </Form>

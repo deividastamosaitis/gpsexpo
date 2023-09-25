@@ -18,16 +18,21 @@ const ObjectScreen = () => {
     fetchObjektus();
   }, []);
 
+  const visiObjektai = objektai?.length;
+  const count = objektai?.filter(
+    (objektas) => objektas.status === "perziureta"
+  ).length;
+
   return (
     <div>
       <h2>Objektu puslapis</h2>
       <ObjektasForm />
       <div className="d-flex">
         <p>
-          <b>Viso objektu:</b> 0
+          <b>Viso objektu:</b> {visiObjektai}
         </p>
         <p style={{ marginLeft: "10px" }}>
-          <b>Aplankytu objektu:</b> 0
+          <b>Aplankytu objektu:</b> {count}
         </p>
       </div>
       <hr />

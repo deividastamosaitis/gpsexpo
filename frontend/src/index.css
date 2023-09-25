@@ -12,9 +12,9 @@
 }
 
 .objektu-skaicius{
-    font-size: 2rem;
+    font-size: 2em;
     font-weight: 500;
-    width: 50px;
+    width: 100px;
     color: white;
     border-radius: 100%;
     background-color: var(--greenish);

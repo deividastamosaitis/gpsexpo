@@ -12,7 +12,7 @@ const ObjektasForm = () => {
             type="text"
             className="mb-2"
             id="name"
-            placeholder="Vardas"
+            placeholder="vardas"
           />
         </Col>
       </Row>

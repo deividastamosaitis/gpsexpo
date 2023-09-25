@@ -1,8 +1,23 @@
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import ClientFormContainer from "../components/ClientFormContainer";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+  const [objektai, setObjektai] = useState(null);
+
+  useEffect(() => {
+    const fetchObjektus = async () => {
+      const response = await fetch("/api/forms/getforms");
+      const json = await response.json();
+
+      if (response.ok) {
+        setObjektai(json);
+      }
+    };
+
+    fetchObjektus();
+  }, []);
 
   return (
     <div className=" py-5">
@@ -23,7 +38,7 @@ const Hero = () => {
           <Col xs={12} md={6} className="">
             <Card className="p-5 d-flex flex-column align-items-center hero-card">
               <h3>Aplankyti objektai:</h3>
-              <p className="objektu-skaicius mt-2">3</p>
+              <p className="objektu-skaicius mt-2">{objektai?.length + 100}</p>
               <hr
                 style={{
                   background: "#3d3d3d",
