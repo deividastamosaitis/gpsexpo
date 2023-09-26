@@ -6,8 +6,9 @@ import L from "leaflet";
 
 import icon from "./constants";
 
-export default function LeafletControlGeocoder() {
+export default function LeafletControlGeocoder(props) {
   const map = useMap();
+  const {positionInfo} = props;
 
   useEffect(() => {
     var geocoder = L.Control.Geocoder.nominatim();
@@ -30,14 +31,18 @@ export default function LeafletControlGeocoder() {
     })
       .on("markgeocode", function (e) {
         var latlng = e.geocode.center;
-        L.marker(latlng, { icon })
+        const marker = L.marker(latlng, { icon })
           .addTo(map)
           .bindPopup(e.geocode.name)
           .openPopup();
         map.fitBounds(e.geocode.bbox);
+        
+  console.log(map.marker.latlng)
       })
       .addTo(map);
+      
   }, []);
+
 
   return null;
 }

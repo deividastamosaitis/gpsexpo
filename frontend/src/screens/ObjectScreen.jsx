@@ -4,8 +4,33 @@ import { Container, Row, Col } from "react-bootstrap";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import LeafletControlGeocoder from '../components/LeafletControlGeocoder';
 
-const ObjectScreen = () => {
+const ObjectScreen = (props) => {
   const [objektai, setObjektai] = useState(null);
+  const {positionInfo} = props;
+  const [latLng, setLatLng] = useState({
+    lat: 0.0,
+    lng: 0.0,
+    isLoaded: false,
+  });
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLatLng({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+            isLoaded: true,
+          });
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+    }
+  }, [setLatLng]);
+
+  console.log(latLng)
 
   useEffect(() => {
     const fetchObjektus = async () => {
@@ -63,7 +88,7 @@ const ObjectScreen = () => {
                   A pretty CSS3 popup. <br /> Easily customizable.
                 </Popup>
               </Marker>
-              <LeafletControlGeocoder />
+              <LeafletControlGeocoder positionInfo={positionInfo}/>
             </MapContainer>
           </Col>
         </Row>
