@@ -1,6 +1,8 @@
-import ObjektasForm from "../components/ObjektasForm";
 import Objektas from "../components/Objektas";
 import { useEffect, useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import LeafletControlGeocoder from '../components/LeafletControlGeocoder';
 
 const ObjectScreen = () => {
   const [objektai, setObjektai] = useState(null);
@@ -24,22 +26,49 @@ const ObjectScreen = () => {
   ).length;
 
   return (
-    <div>
-      <h2>Objektu puslapis</h2>
-      <div className="d-flex">
-        <p>
-          <b>Viso objektu:</b> {visiObjektai}
-        </p>
-        <p style={{ marginLeft: "10px" }}>
-          <b>Aplankytu objektu:</b> {count}
-        </p>
-      </div>
-      <hr />
-      {objektai &&
-        objektai.map((objektas) => (
-          <Objektas key={objektas._id} objektas={objektas} />
-        ))}
-    </div>
+    <>
+      <Container>
+        <Row>
+          <Col xs={12} md={6}>
+            <div>
+              <h2>Objektu puslapis</h2>
+              <div className="d-flex">
+                <p>
+                  <b>Viso objektu:</b> {visiObjektai}
+                </p>
+                <p style={{ marginLeft: "10px" }}>
+                  <b>Aplankytu objektu:</b> {count}
+                </p>
+              </div>
+              <hr />
+              {objektai &&
+                objektai.map((objektas) => (
+                  <Objektas key={objektas._id} objektas={objektas} />
+                ))}
+            </div>
+          </Col>
+          <Col xs={12} md={6} className="map-box">
+            <MapContainer
+            style={{width: '100%', height: '50vh'}}
+              center={[55.28833, 23.97472]}
+              zoom={7}
+              scrollWheelZoom={true}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[55.28833, 23.97472]}>
+                <Popup>
+                  A pretty CSS3 popup. <br /> Easily customizable.
+                </Popup>
+              </Marker>
+              <LeafletControlGeocoder />
+            </MapContainer>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 
