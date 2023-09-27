@@ -2,35 +2,10 @@ import Objektas from "../components/Objektas";
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import LeafletControlGeocoder from '../components/LeafletControlGeocoder';
+import LeafletControlGeocoder from "../components/LeafletControlGeocoder";
 
-const ObjectScreen = (props) => {
+const ObjectScreen = ({ coords }) => {
   const [objektai, setObjektai] = useState(null);
-  const {positionInfo} = props;
-  const [latLng, setLatLng] = useState({
-    lat: 0.0,
-    lng: 0.0,
-    isLoaded: false,
-  });
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLatLng({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-            isLoaded: true,
-          });
-        },
-        (error) => {
-          alert(error);
-        }
-      );
-    }
-  }, [setLatLng]);
-
-  console.log(latLng)
 
   useEffect(() => {
     const fetchObjektus = async () => {
@@ -68,13 +43,17 @@ const ObjectScreen = (props) => {
               <hr />
               {objektai &&
                 objektai.map((objektas) => (
-                  <Objektas key={objektas._id} objektas={objektas} />
+                  <>
+                    <Objektas key={objektas._id} objektas={objektas} />
+                    {console.log(objektas.address)}
+                    {(coords = objektas.address)}
+                  </>
                 ))}
             </div>
           </Col>
           <Col xs={12} md={6} className="map-box">
             <MapContainer
-            style={{width: '100%', height: '50vh'}}
+              style={{ width: "100%", height: "50vh" }}
               center={[55.28833, 23.97472]}
               zoom={7}
               scrollWheelZoom={true}
@@ -83,12 +62,7 @@ const ObjectScreen = (props) => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              <Marker position={[55.28833, 23.97472]}>
-                <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-              </Marker>
-              <LeafletControlGeocoder positionInfo={positionInfo}/>
+              <LeafletControlGeocoder />
             </MapContainer>
           </Col>
         </Row>

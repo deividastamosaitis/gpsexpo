@@ -2,9 +2,19 @@ import { useState } from "react";
 import { useCreateUserFormMutation } from "../slices/usersApiSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Button, Form, InputGroup } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Form,
+  InputGroup,
+  Modal,
+} from "react-bootstrap";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import LeafletControlGeocoder from "../components/LeafletControlGeocoder";
 
 const ClientFormContainer = () => {
   const [name, setName] = useState("");
@@ -15,8 +25,25 @@ const ClientFormContainer = () => {
   const [nightTime, setNightTime] = useState("");
   const [howLong, setHowLong] = useState("");
   const [money, setMoney] = useState("");
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState(null);
   const [details, setDetails] = useState("");
+
+  //MODAL
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
+  const handleShow = () => setShowModal(true);
+
+  const CallBack = (childData) => {
+    console.log(childData);
+    setAddress(childData);
+    console.log("adresas:" + address);
+  };
+
+  //MODAL END
 
   const onChangeUtp = (e) => {
     const value = e.target.value;
@@ -185,15 +212,40 @@ const ClientFormContainer = () => {
           <Form.Label htmlFor="inlineFormInputGroup">
             Objekto adresas(tik jei matomas per maps.lt):
           </Form.Label>
-          <InputGroup className="mb-2">
+          <InputGroup className="mb-2 d-none">
             <Form.Control
               type="text"
               id="cameraCount"
               value={address}
-              onChange={(e) => setAddress(e.target.value)}
               placeholder="Kaunas, Jonavos g. 204A"
             />
           </InputGroup>
+          <Button variant="primary" onClick={handleShow}>
+            Launch demo modal
+          </Button>
+
+          <Modal show={showModal} onHide={handleClose}>
+            <MapContainer
+              style={{ width: "100%", height: "50vh" }}
+              center={[55.28833, 23.97472]}
+              zoom={7}
+              scrollWheelZoom={true}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <LeafletControlGeocoder handleCallback={CallBack} />
+            </MapContainer>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={handleClose}>
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Col>
         {/* <Col xs="12" md={6}>
           <Form.Group controlId="inlineFormInputGroup" className="mb-3">
