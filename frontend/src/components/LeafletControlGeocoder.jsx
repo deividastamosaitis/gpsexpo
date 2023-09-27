@@ -24,9 +24,12 @@ export default function LeafletControlGeocoder(props) {
 
     L.Control.geocoder({
       query: "",
-      placeholder: "Search here...",
-      defaultMarkGeocode: false,
-      geocoder,
+      // collapsed: true,
+      // placeholder: "Search here...",
+      // defaultMarkGeocode: true,
+      geocoder: new L.Control.Geocoder(),
+      collapsed: false,
+      placeholder: "Iveskite adresa",
     })
       .on("markgeocode", function (e) {
         var latlng = e.geocode.center;
