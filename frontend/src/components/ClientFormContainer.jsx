@@ -25,7 +25,7 @@ const ClientFormContainer = () => {
   const [nightTime, setNightTime] = useState("");
   const [howLong, setHowLong] = useState("");
   const [money, setMoney] = useState("");
-  const [address, setAddress] = useState(null);
+  const [address, setAddress] = useState([]);
   const [details, setDetails] = useState("");
 
   //MODAL
@@ -38,9 +38,8 @@ const ClientFormContainer = () => {
   const handleShow = () => setShowModal(true);
 
   const CallBack = (childData) => {
-    console.log(childData);
+    const {lat, lng} = childData
     setAddress(childData);
-    console.log("adresas:" + address);
   };
 
   //MODAL END
@@ -210,18 +209,19 @@ const ClientFormContainer = () => {
         </Col>
         <Col xs="12" md={6}>
           <Form.Label htmlFor="inlineFormInputGroup">
-            Objekto adresas(tik jei matomas per maps.lt):
+            Objekto adresas:
           </Form.Label>
-          <InputGroup className="mb-2 d-none">
+          <InputGroup className="mb-2">
             <Form.Control
               type="text"
               id="cameraCount"
               value={address}
+              // value={`${address.lat} ${address.lng}`}
               placeholder="Kaunas, Jonavos g. 204A"
             />
           </InputGroup>
-          <Button variant="primary" onClick={handleShow}>
-            Launch demo modal
+          <Button variant="primary" onClick={handleShow} className="mb-2">
+            Atidaryti žemėlapį
           </Button>
 
           <Modal show={showModal} onHide={handleClose}>
@@ -237,12 +237,13 @@ const ClientFormContainer = () => {
               />
               <LeafletControlGeocoder handleCallback={CallBack} />
             </MapContainer>
+            <label className="m-2 comment">*Įveskite adresą paieškos laukelyje ir spauskite klaviatūroje: "Enter"/"Go"/"Next"</label>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
-                Close
+                Uždaryti
               </Button>
               <Button variant="primary" onClick={handleClose}>
-                Save Changes
+                Išsaugoti
               </Button>
             </Modal.Footer>
           </Modal>

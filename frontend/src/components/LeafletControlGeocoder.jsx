@@ -24,12 +24,10 @@ export default function LeafletControlGeocoder(props) {
 
     L.Control.geocoder({
       query: "",
-      // collapsed: true,
-      // placeholder: "Search here...",
-      // defaultMarkGeocode: true,
-      geocoder: new L.Control.Geocoder(),
       collapsed: false,
-      placeholder: "Iveskite adresa",
+      placeholder: "*Įveskite adresą...",
+      defaultMarkGeocode: false,
+      geocoder,
     })
       .on("markgeocode", function (e) {
         var latlng = e.geocode.center;
@@ -39,7 +37,7 @@ export default function LeafletControlGeocoder(props) {
           .openPopup();
         map.fitBounds(e.geocode.bbox);
         {
-          props.handleCallback(latlng.lat);
+          props.handleCallback([latlng.lat, latlng.lng]);
         }
       })
       .addTo(map);

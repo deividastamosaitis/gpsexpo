@@ -4,7 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import LeafletControlGeocoder from "../components/LeafletControlGeocoder";
 
-const ObjectScreen = ({ coords }) => {
+const ObjectScreen = () => {
   const [objektai, setObjektai] = useState(null);
 
   useEffect(() => {
@@ -45,8 +45,6 @@ const ObjectScreen = ({ coords }) => {
                 objektai.map((objektas) => (
                   <>
                     <Objektas key={objektas._id} objektas={objektas} />
-                    {console.log(objektas.address)}
-                    {(coords = objektas.address)}
                   </>
                 ))}
             </div>
@@ -62,7 +60,15 @@ const ObjectScreen = ({ coords }) => {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
-              <LeafletControlGeocoder />
+            {objektai && objektai.map((objektas) => (
+              <>
+              <Marker position={{lat: objektas.address[0], lng: objektas.address[1]}}>
+                <Popup>
+                  <p>{objektas.details}</p>
+                </Popup>
+              </Marker>
+              </>
+            ))}
             </MapContainer>
           </Col>
         </Row>

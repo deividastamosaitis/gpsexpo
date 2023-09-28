@@ -36,8 +36,9 @@ const formModelSchema = mongoose.Schema(
       required: true,
     },
     address: {
-      type: String,
+      type: [Number],
       required: true,
+      default: [0, 0],
     },
     details: {
       type: String,
