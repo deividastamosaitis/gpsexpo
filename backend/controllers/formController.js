@@ -61,7 +61,7 @@ const getForm = asyncHandler(async (req, res) => {
 });
 
 // @desc   Update user profile
-// route   PUT /api/users/profile
+// route   PATCH /api/users/profile
 // @access Private
 const updateForm = asyncHandler(async (req, res) => {
   try {

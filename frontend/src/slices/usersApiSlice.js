@@ -40,15 +40,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     }),
     userForm: builder.mutation({
       query: (data) => ({
-        url: `${FORM_URL}/getform`,
+        url: `${FORM_URL}/getforms`,
         method: "GET",
         body: data,
       }),
     }),
     updateForm: builder.mutation({
       query: (data) => ({
-        url: `${FORM_URL}/getform`,
-        method: "PUT",
+        url: `${FORM_URL}/getforms`,
+        method: "PATCH",
         body: data,
       }),
     }),

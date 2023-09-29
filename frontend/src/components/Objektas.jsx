@@ -1,12 +1,50 @@
 import { FaEdit } from "react-icons/fa";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { Button, Modal, Form, Row, Col, InputGroup } from "react-bootstrap";
 
 const Objektas = ({ objektas }) => {
   const [show, setShow] = useState(false);
+  const [details, setDetails] = useState("");
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // try {
+    //   fetch(`api/forms/getforms/${objektas._id}`, {
+    //     method: "PATCH",
+    //     headers: {
+    //       'Accept': 'applications/json',
+    //       'Content-type': 'application/json'
+    //     },
+    //     body: JSON.stringify(objektas)
+    //   })
+    //   .then(res => {
+    //     objektas.details=details
+    //     console.log("atnaujita")
+    //   })
+    // } catch (error) {
+    //   toast.error(err?.data?.message || err.error);
+    // }
+    fetch(`api/forms/getforms/${objektas._id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        details: details
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then(response => response.json())
+      .then(() => {
+        toast.success("Profile updated");
+      })
+  }
+
 
   return (
     <div className="d-flex">
@@ -21,6 +59,7 @@ const Objektas = ({ objektas }) => {
           cursor={"pointer"}
           onClick={() => {
             handleShow();
+            console.log(objektas._id)
           }}
         />
       </div>
@@ -41,6 +80,7 @@ const Objektas = ({ objektas }) => {
                   className="mb-2"
                   id="name"
                   value={objektas.name}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Col>
               <Col xs="12" md={6}>
@@ -159,7 +199,8 @@ const Objektas = ({ objektas }) => {
                   </Form.Label>
                   <Form.Control
                     as="textarea"
-                    value={objektas.details}
+                    value={details}
+                    onChange={(e) => setDetails(e.target.value)}
                     rows={3}
                   />
                 </Form.Group>
@@ -171,7 +212,7 @@ const Objektas = ({ objektas }) => {
           <Button variant="secondary" onClick={handleClose}>
             Uždaryti
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSubmit}>
             Išsaugoti pakeitimus
           </Button>
         </Modal.Footer>
