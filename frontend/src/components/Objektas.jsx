@@ -1,11 +1,14 @@
 import { FaEdit } from "react-icons/fa";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { Button, Modal, Form, Row, Col, InputGroup } from "react-bootstrap";
 
 const Objektas = ({ objektas }) => {
   const [show, setShow] = useState(false);
   const [details, setDetails] = useState("");
+
+  const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
   const handleShow = () => {
@@ -14,22 +17,6 @@ const Objektas = ({ objektas }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // try {
-    //   fetch(`api/forms/getforms/${objektas._id}`, {
-    //     method: "PATCH",
-    //     headers: {
-    //       'Accept': 'applications/json',
-    //       'Content-type': 'application/json'
-    //     },
-    //     body: JSON.stringify(objektas)
-    //   })
-    //   .then(res => {
-    //     objektas.details=details
-    //     console.log("atnaujita")
-    //   })
-    // } catch (error) {
-    //   toast.error(err?.data?.message || err.error);
-    // }
     fetch(`api/forms/getforms/${objektas._id}`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -39,9 +26,12 @@ const Objektas = ({ objektas }) => {
         "Content-type": "application/json; charset=UTF-8",
       },
     })
-      .then(response => response.json())
+      .then(response => response.json({
+        details
+      }))
       .then(() => {
-        toast.success("Profile updated");
+        setShow(false)
+        toast.success("Objektas atnaujintas");
       })
   }
 
@@ -49,7 +39,7 @@ const Objektas = ({ objektas }) => {
   return (
     <div className="d-flex">
       <p>
-        <b>1. </b>
+        <b>{objektas.createdAt}</b>
         {objektas.name}
         {objektas.address}
         {objektas.status}

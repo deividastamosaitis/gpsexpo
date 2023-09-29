@@ -211,7 +211,7 @@ const ClientFormContainer = () => {
           <Form.Label htmlFor="inlineFormInputGroup">
             Objekto adresas:
           </Form.Label>
-          <InputGroup className="mb-2">
+          <InputGroup className="mb-2 d-none">
             <Form.Control
               type="text"
               id="cameraCount"
